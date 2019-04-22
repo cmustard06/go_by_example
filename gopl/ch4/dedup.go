@@ -11,6 +11,9 @@ import (
 */
 
 func main(){
+	var a int64 = 24*60*60*1000*1000
+	var b int64 = 24*60*60*1000
+	fmt.Println(a/b)
 	seen := make(map[string]bool)
 	input := bufio.NewScanner(os.Stdin)
 	for input.Scan(){
