@@ -64,8 +64,8 @@ func crawl(url string) []string {
 func breadthFirst(f func(item string) []string, worklist []string) {
 	seen := make(map[string]bool)
 	for len(worklist) > 0 {
-		items := worklist //如果要对worklist中数据进行操作，这里一点要重新复制，否则结果可能有误
-		worklist = nil    //这是一个新的变量，作用域问题
+		items := worklist
+		worklist = nil //注意作用域
 		for _, item := range items {
 			if !seen[item] {
 				seen[item] = true //表示该页已经被爬过了
