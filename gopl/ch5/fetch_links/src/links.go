@@ -57,7 +57,7 @@ func Extract(url string) ([]string, error) {
 }
 
 func main() {
-	url := "https://www.aisec.com"
+	url := "https://www.python.org"
 	strings, err := Extract(url)
 	if err != nil {
 		fmt.Errorf("error is %v", err)
