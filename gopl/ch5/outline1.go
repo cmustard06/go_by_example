@@ -18,7 +18,7 @@ func outline(stack []string, n *html.Node) {
 	}
 
 	for c := n.FirstChild; c != nil; c = c.NextSibling {
-		outline(stack, c)
+		outline(stack, c) //迭代查询页面中所有的标签
 	}
 }
 
