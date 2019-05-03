@@ -40,7 +40,7 @@ func (f *celsiusFlag) Set(s string) error {
 	var unit string
 	var value float64
 
-	fmt.Sscanf(s, "%f%s", &value, &unit)
+	fmt.Sscanf(s, "%f%s", &value, &unit) //从输入的s中解析一个浮点数value和字符串unit，无需检查错误
 	switch unit {
 	case "C":
 		f.Celsius = Celsius(value)
