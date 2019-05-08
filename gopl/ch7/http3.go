@@ -7,7 +7,15 @@ import (
 )
 
 //注册/list和/price
-
+//!+handlerfunc
+/*
+package http
+type HandlerFunc func(w ResponseWriter, r *Request)
+func (f HandlerFunc) ServeHTTP(w ResponseWriter, r *Request) {
+	f(w, r)
+}
+//!-handlerfunc
+*/
 type dollars float32
 
 func (d dollars)String() string{
