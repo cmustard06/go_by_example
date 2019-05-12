@@ -39,9 +39,9 @@ func handleConn(c net.Conn) {
 }
 
 func echo(c net.Conn, shout string, delay time.Duration) {
-	fmt.Fprintf(c, "\t%s", strings.ToUpper(shout))
+	fmt.Fprintf(c, "\n%s", strings.ToUpper(shout))
 	time.Sleep(delay)
-	fmt.Fprintf(c, "\t%s", shout)
+	fmt.Fprintf(c, "\n%s", shout)
 	time.Sleep(delay)
-	fmt.Fprintf(c, "\t%s", strings.ToLower(shout))
+	fmt.Fprintf(c, "\n%s", strings.ToLower(shout))
 }
