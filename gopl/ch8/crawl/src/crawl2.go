@@ -7,7 +7,7 @@ import (
 )
 
 //该版本的爬虫使用有缓存的通道作为计数信号量限制
-//爬虫的并发数量
+//爬虫的并发数量,主意这里没有限制爬取的域名，所以可能无穷无尽
 
 //令牌是一个计数信号量，确保并发请求限制在20个以内
 var token = make(chan struct{}, 20) //当然这里也可以使用bool型或者int
@@ -19,7 +19,7 @@ func main() {
 	n++
 	//go func() {worklist<- os.Args[1:]}()
 	go func() {
-		worklist <- []string{"https://www.csdn.net"}
+		worklist <- []string{"http://gopl.io"}
 	}()
 
 	seen := make(map[string]bool)
