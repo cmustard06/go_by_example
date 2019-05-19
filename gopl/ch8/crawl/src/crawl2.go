@@ -14,7 +14,7 @@ var token = make(chan struct{}, 20) //当然这里也可以使用bool型或者in
 
 func main() {
 	worklist := make(chan []string)
-	var n int //等待发送到任务列表的数量
+	var n int //等待发送到任务列表的数量，使用n跟踪任务数量，一个新的url就递增，爬取成功后就递减，这时候主循环会从n减到0，这时候就可以退出了
 	//从命令行开始
 	n++
 	//go func() {worklist<- os.Args[1:]}()
@@ -23,7 +23,7 @@ func main() {
 	}()
 
 	seen := make(map[string]bool)
-	for ; n > 0; n-- {
+	for ; n > 0; n-- { //如果不这样使用，主循坏将永远不会退出，因为如果没有新的url就会一直阻塞
 		list := <-worklist
 		for _, link := range list {
 			if !seen[link] {
