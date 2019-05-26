@@ -32,6 +32,7 @@ func main() {
 	}
 	go func() {
 		n.Wait() //等待所以协程完成之后，关闭通道
+		fmt.Println("等待完成")
 		close(fileSizes)
 	}()
 
@@ -42,15 +43,17 @@ func main() {
 	var nfiles, nbytes int64
 
 loop:
-	select {
-	case size, ok := <-fileSizes:
-		if !ok {
-			break loop // 通道已经关闭
+	for {
+		select {
+		case size, ok := <-fileSizes:
+			if !ok {
+				break loop // 通道已经关闭
+			}
+			nfiles++
+			nbytes += size
+		case <-tick:
+			fmt.Printf("%d files %.1f GB\n", nfiles, float64(nbytes)/1e9)
 		}
-		nfiles++
-		nbytes += size
-	case <-tick:
-		fmt.Printf("%d files %.1f GB\n", nfiles, float64(nbytes)/1e9)
 	}
 	fmt.Printf("%d files %.1f GB\n", nfiles, float64(nbytes)/1e9)
 }
@@ -65,6 +68,7 @@ func walkDir(dir string, n *sync.WaitGroup, fileSize chan<- int64) {
 			fmt.Println(subdir)
 			go walkDir(subdir, n, fileSize)
 		} else {
+			fmt.Println(filepath.Join(dir, entry.Name()))
 			fileSize <- entry.Size()
 		}
 	}
